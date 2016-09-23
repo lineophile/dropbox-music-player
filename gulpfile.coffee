@@ -10,6 +10,10 @@ gulp.task 'coffee', ->
     .on 'error', (error) -> console.log error
     .pipe gulp.dest './public/'
 
+gulp.task 'js', ->
+  gulp.src './src/*.js'
+    .pipe gulp.dest './public'  
+
 gulp.task 'jade', ->
   gulp.src './src/*.jade'
     .pipe jade()
@@ -35,4 +39,4 @@ gulp.task 'watch', ['connect'], ->
   gulp.watch './src/*.styl', ['stylus']
   gulp.watch './static/**/*', ['copy']
 
-gulp.task 'default', ['coffee', 'jade', 'stylus', 'copy']
+gulp.task 'default', ['jade', 'stylus', 'copy', 'js']

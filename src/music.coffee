@@ -34,6 +34,11 @@ $(document).ready ->
       init()
 
     return false
+  
+  # $('#getBookmark a').click ->
+  #   media = document.getElementById('getBookmark')
+
+
 
   $('#settingslink').click ->
     loading true
@@ -216,3 +221,5 @@ loading = (show) ->
     $('#loader').show()
   else
     $('#loader').hide()
+
+
