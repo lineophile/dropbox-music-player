@@ -1,0 +1,41 @@
+<!DOCTYPE html >
+<html >
+  <head>
+    <title>Get track example</title>
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+  </head>
+  <body>
+    <h1>Get track example</h1>
+    <audio id="audio1" controls  >
+      <source src="http://mattcrouch.net/experiments/music-sync/song.mp3">
+      <track id="entrack" label="English subtitles" kind="chapters" src="track.vtt" srclang="en" default>
+    </audio>
+    <p>
+    <button id="mybutton">Show tracks</button>
+    </p>
+    <div style="display:block; overflow:auto; height:200px; width:650px;" id="display"></div>
+   <div id="output"></div>
+    <script>
+      
+		jQuery(document).ready(function() {
+			$('audio').trigger("play"); //Start playing the audio
+			
+				var audio = document.querySelector("audio");
+				console.log(audio.textTracks[0]);
+				
+				audio.textTracks[0].oncuechange = function (){
+					$("#output").html("");
+				 	if(this.activeCues !== null) {
+			 			for(var i=0;i<this.activeCues.length;i++) {
+				 			if(this.activeCues[i] !== undefined) {
+				 				$("#output").append(this.activeCues[i].text+"<br>");
+				 			}
+			 			}
+				 	}
+				}
+		});
+		
+	
+   </script>
+  </body>
+</html>
