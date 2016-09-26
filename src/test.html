@@ -13,29 +13,45 @@
     <p>
     <button id="mybutton">Show tracks</button>
     </p>
-    <div style="display:block; overflow:auto; height:200px; width:650px;" id="display"></div>
+    
    <div id="output"></div>
     <script>
       
-		jQuery(document).ready(function() {
-			$('audio').trigger("play"); //Start playing the audio
-			
+		$(function(){}
+    
+			  $('audio').trigger("play"); //Start playing the audio
 				var audio = document.querySelector("audio");
-				console.log(audio.textTracks[0]);
-				
-				audio.textTracks[0].oncuechange = function (){
-					$("#output").html("");
-				 	if(this.activeCues !== null) {
-			 			for(var i=0;i<this.activeCues.length;i++) {
-				 			if(this.activeCues[i] !== undefined) {
-				 				$("#output").append(this.activeCues[i].text+"<br>");
-				 			}
-			 			}
-				 	}
-				}
-		});
+				var track = document.querySelector('track'); 
+				var output = document.querySelector('#output');
+
+        track.addEventListener('load',function() {
+            var c = audio.textTracks[0].cues;
+            for (var i=0; i<c.length; i++) {
+              var s = document.createElement("p");
+              s.innerHTML = c[i].text;
+              s.setAttribute('data-start',c[i].startTime);
+              s.addEventListener("click",seek);
+              output.appendChild(s);
+            }
+        });
+
+				// audio.textTracks[0].oncuechange = function (){
+				// 	$("#output").html("");
+				//  	if(this.activeCues !== null) {
+			 	// 		for(var i=0;i<this.activeCues.length;i++) {
+				//  			if(this.activeCues[i] !== undefined) {
+				//  				$("#output").append(this.activeCues[i].text+"<br>");
+				//  			}
+			 	// 		}
+				//  	}
+				// }
+
+        function seek(e) {
+          audio.currentTime = this.getAttribute('data-start');
+          if(audio.paused){ audio.play(); }
+        };
 		
-	
+	})
    </script>
   </body>
 </html>
