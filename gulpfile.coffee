@@ -12,7 +12,11 @@ gulp.task 'coffee', ->
 
 gulp.task 'js', ->
   gulp.src './src/*.js'
-    .pipe gulp.dest './public'  
+    .pipe gulp.dest './public/'
+
+gulp.task 'html', ->
+  gulp.src './src/*.html'
+    .pipe gulp.dest './public/'
 
 gulp.task 'jade', ->
   gulp.src './src/*.jade'
@@ -38,5 +42,7 @@ gulp.task 'watch', ['connect'], ->
   gulp.watch './src/*.jade', ['jade']
   gulp.watch './src/*.styl', ['stylus']
   gulp.watch './static/**/*', ['copy']
+  gulp.watch './src/*.html', ['html']
+  gulp.watch './src/*.js', ['js']
 
-gulp.task 'default', ['jade', 'stylus', 'copy', 'js']
+gulp.task 'default', ['jade', 'stylus', 'copy', 'js', 'html']
